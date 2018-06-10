@@ -1,10 +1,8 @@
 import React from 'react';
 import './App.css';
 import * as BooksAPI from './BooksAPI';
-import CurrentlyReading from './ShelfCategoryComponents/CurrentlyReading';
-import WantToRead from './ShelfCategoryComponents/WantToRead';
-import AlreadyRead from './ShelfCategoryComponents/AlreadyRead';
 import SearchPage from './SearchPage/SearchPage';
+import BookList from './BookList';
 
 class BooksApp extends React.Component {
   constructor(props) {
@@ -16,17 +14,28 @@ class BooksApp extends React.Component {
        * users can use the browser's back and forward buttons to navigate between
        * pages, as well as provide a good URL they can bookmark and share.
        */
-      showSearchPage: true,
-      books: [],
+      showSearchPage: false,
+      currentBooks: [],
+      currentlyRead: [],
+      wantToRead: [],
+      read: []
     }
   }
 
   componentDidMount() {
     BooksAPI.getAll()
-      .then((books) => {
-        this.setState(() => ({
-          books
-        }))
+      .then((currentBooks) => {
+        this.setState({
+          currentlyRead: currentBooks
+        })
+        // currentBooks.map(book => {
+        //   if (book.shelf === 'currentlyReading') {
+        //     this.setState({
+        //       currentlyRead: currentBooks
+        //     })
+        //   }
+        // })
+        // return;
       })
   }
 
@@ -42,13 +51,26 @@ class BooksApp extends React.Component {
               </div>
               <div className="list-books-content">
                 <div className="bookshelf">
-                  <CurrentlyReading books={this.state.books} />
+                  <h2 className="bookshelf-title">Currently Reading</h2>
+                  <div className="bookshelf-books">
+                      <BookList searchResults={this.state.currentlyRead} shelfName={'currentlyReading'} />
+                  </div>
                 </div>
                 <div className="bookshelf">
-                  <WantToRead books={this.state.books} />
+                  <div className="bookshelf">
+                    <h2 className="bookshelf-title">Want To Read</h2>
+                    <div className="bookshelf-books">
+                        <BookList searchResults={this.state.currentlyRead} shelfName={'wantToRead'} />
+                    </div>
+                  </div>
                 </div>
                 <div className="bookshelf">
-                  <AlreadyRead books={this.state.books} />
+                  <div className="bookshelf">
+                    <h2 className="bookshelf-title">Read</h2>
+                    <div className="bookshelf-books">
+                      <BookList searchResults={this.state.currentlyRead} shelfName={'read'} />
+                    </div>
+                  </div>
                 </div>
               </div>
               <div className="open-search">
