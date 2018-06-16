@@ -42,27 +42,10 @@ class BooksApp extends React.Component {
       this.componentDidMount()
   }
 
-  // addShelfPropsToSearchResults = (books) => {
-  //   let myBooks = this.state.currentBooks
-  //   for (let book of books) {
-  //     // console.log(books)
-  //     book.shelf = "none"
-  //   }
-  //   for (let book of books) {
-  //     for (let b of myBooks) {
-  //       if (b.id === book.id) {
-  //         book.shelf = b.shelf
-  //       }
-  //     }
-  //   }
-  //   // return books
-  // }
-
   searchBooks = (query) => {
     BooksAPI.search(query).then(results => {
       // console.log(results);
       if (results.length > 0) {
-        // this.addShelfPropsToSearchResults(results)
         this.setState(() => {
           return { searchResults: results }
         })
