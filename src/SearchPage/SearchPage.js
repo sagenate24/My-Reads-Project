@@ -1,41 +1,37 @@
-import React from 'react';
-import * as BooksAPI from '../BooksAPI';
-// import SearchList from './SearchList';
-// import SearchList from './SearchList';
-import Book from '../Book';
+import React from 'react'
+import Book from '../Book'
+import { Link } from 'react-router-dom'
 
 class SearchPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      query: '',
-      searchResults: []
+      query: ''
     }
   }
 
   updateQuery = (query) => {
     if (query) {
       this.setState({
-        query: query
+        query: query.trim()
       });
-      BooksAPI.search(query).then(results => {
-        this.setState({
-          searchResults: results
-        })
-      })
+      this.props.onSearch(query.trim());
+    }
+    else {
+      this.setState({
+        query: ''
+      });
     }
   }
 
-  clearQuery = () => {
-    this.updateQuery('')
-  }
-
   render() {
-    console.log(this.state.searchResults)
     return (
       <div className="search-books">
         <div className="search-books-bar">
-          <a className="close-search">Close</a>
+          <Link
+            to='/'
+            className="close-search"
+          >Close</Link>
           <div className="search-books-input-wrapper">
 
             <input
@@ -44,13 +40,22 @@ class SearchPage extends React.Component {
               value={this.state.query}
               onChange={(event) => this.updateQuery(event.target.value)}
             />
-
           </div>
         </div>
-        {this.state.searchResults.length > 0 &&
-          <Book searchResults={this.state.searchResults} />
-        }
+        <ol className="books-grid">
+          {
+            this.props.searchResults.map(searchBook => {
 
+              const matchingBook = this.props.currentBooks.find(currentBook => {
+                // console.log(currentBook.id === searchBook.id)
+                return currentBook.id === searchBook.id;
+
+              })
+              return <Book key={searchBook.id} book={searchBook} matchingBook={matchingBook}
+                onShelfUpdate={this.props.onShelfUpdate} />
+            })
+          }
+        </ol>
       </div>
     );
   }

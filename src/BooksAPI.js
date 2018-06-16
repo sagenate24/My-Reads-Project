@@ -40,6 +40,5 @@ export const search = (query) =>
       'Content-Type': 'application/json'
     },
     body: JSON.stringify({ query })
-  }).then(res => {
-    if (res.ok) { return res.json()}
-  }).then(data => data.books)
+  }).then(res => res.json())
+  .then(data => data.books)

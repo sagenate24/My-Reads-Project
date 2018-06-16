@@ -1,5 +1,5 @@
 import React from 'react';
-import ImageNotFound from './image-not-found.jpg';
+import ImageNotFound from './ImageNotFound.png';
 import SelectCategory from './SelectCategory';
 import './App.css';
 
@@ -15,7 +15,14 @@ class Book extends React.Component {
               : <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${ImageNotFound})` }}></div>
             }
             <div className="book-shelf-changer">
-              <SelectCategory book={book} shelfName={this.props.shelfName}/>
+
+              {this.props.matchingBook && this.props.matchingBook.shelf
+                ? <SelectCategory book={book} shelfName={this.props.matchingBook.shelf}
+                  onShelfUpdate={this.props.onShelfUpdate} />
+
+                : <SelectCategory book={book}
+                  onShelfUpdate={this.props.onShelfUpdate} shelfName={this.props.currentBookShelf} />
+              }
             </div>
           </div>
           <div className="book-title">{book.title}</div>
