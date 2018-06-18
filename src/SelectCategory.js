@@ -9,7 +9,6 @@ class SelectCategory extends React.Component {
   }
 
   render() {
-    // console.log(this.props.shelfName);
     return (
       <div>
         <select value={this.props.shelfName} onChange={this.handleSubmit}>
@@ -20,7 +19,6 @@ class SelectCategory extends React.Component {
           <option value="none">delete</option>
         </select>
       </div>
-
     );
   }
 }

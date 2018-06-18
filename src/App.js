@@ -32,14 +32,26 @@ class BooksApp extends React.Component {
       });
   }
 
+
+//Fires after books are changed to new Shelfs 
+  renderAllUpdatedBooks = () => {
+    BooksAPI.getAll()
+      .then((results) => {
+        this.setState({
+          currentBooks: results
+        });
+      });
+  }
+
+  //Updates API with a new or exisisting book with the shelf passed in
   updateShelf = (book, shelf) => {
     BooksAPI.update(book, shelf)
       .then(() => {
         this.setState(currState => ({
           currentBooks: currState.currentBooks.filter(b => b.id !== book.id).concat({ book })
         }))
+        this.renderAllUpdatedBooks();
       })
-      this.componentDidMount()
   }
 
   searchBooks = (query) => {
@@ -54,7 +66,7 @@ class BooksApp extends React.Component {
   }
 
   render() {
-    console.log(this.state.currentBooks)
+    // console.log(this.state.currentBooks)
     return (
       <div className="app">
         <Route exact path='/' render={() => (
@@ -99,8 +111,8 @@ class BooksApp extends React.Component {
         )} />
         <Route path='/search' render={() => (
           <SearchPage onShelfUpdate={this.updateShelf} currentBooks={this.state.currentBooks}
-          searchResults={this.state.searchResults} onSearch={this.searchBooks}
-          shelfName={this.getShelf} />
+            searchResults={this.state.searchResults} onSearch={this.searchBooks}
+            shelfName={this.getShelf} />
         )} />
       </div>
     );

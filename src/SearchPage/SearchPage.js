@@ -38,16 +38,16 @@ class SearchPage extends React.Component {
               type="text"
               placeholder="Search by title or author"
               value={this.state.query}
-              onChange={(event) => this.updateQuery(event.target.value)}
+              onChange={(e) => this.updateQuery(e.target.value)}
             />
           </div>
         </div>
         <ol className="books-grid">
           {
             this.props.searchResults.map(searchBook => {
-
+              //if current books are displayed on the search page give the book the corresponding shelf name
               const matchingBook = this.props.currentBooks.find(currentBook => {
-                // console.log(currentBook.id === searchBook.id)
+                
                 return currentBook.id === searchBook.id;
 
               })
