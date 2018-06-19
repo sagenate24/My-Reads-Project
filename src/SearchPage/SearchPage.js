@@ -18,19 +18,17 @@ class SearchPage extends React.Component {
       this.setState({
         query: query.trim(),
         showResults: true
-      });
+      })
       this.props.onSearch(query.trim());
-    }
-    else {
+    } else {
       this.setState({
         query: '',
         showResults: false
-      });
+      })
     }
   }
 
   render() {
-    console.log(this.props.errors)
     return (
       <div className="search-books">
         <div className="search-books-bar">
@@ -39,19 +37,18 @@ class SearchPage extends React.Component {
             className="close-search"
           >Close</Link>
           <div className="search-books-input-wrapper">
-
             <input
               type="text"
               placeholder="Search by title or author"
-              value={this.state.query}
               onChange={(e) => this.updateQuery(e.target.value)}
             />
           </div>
         </div>
         <ol className="books-grid">
           {this.state.showResults ? (
+            //this.props.errors is a string that comes back from the server if the query does not match
             this.props.errors.length > 0 ? (
-              <h1>No Results for {this.state.query}</h1>
+              <h1>No Results for '{this.state.query}'</h1>
             ) : (
                 this.props.searchResults.map(searchBook => {
                   //if current books are displayed on the search page give books their corresponding shelf name
@@ -68,7 +65,7 @@ class SearchPage extends React.Component {
             )}
         </ol>
       </div>
-    );
+    )
   }
 }
 

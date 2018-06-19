@@ -57,10 +57,7 @@ class BooksApp extends React.Component {
     BooksAPI.search(query).then(results => {
       if (results.length > 0) {
         this.setState(() => {
-          return { 
-            searchResults: results,
-            errors: '' 
-          }
+          return { searchResults: results, errors: '' }
         })
       } else if (results.error) {
         this.setState(() => {
@@ -117,7 +114,7 @@ class BooksApp extends React.Component {
         <Route path='/search' render={() => (
           <SearchPage onShelfUpdate={this.updateShelf} currentBooks={this.state.currentBooks}
             searchResults={this.state.searchResults} onSearch={this.searchBooks}
-            shelfName={this.getShelf} errors={this.state.errors}/>
+            errors={this.state.errors}/>
         )} />
       </div>
     );
