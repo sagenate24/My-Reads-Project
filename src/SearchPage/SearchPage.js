@@ -1,26 +1,32 @@
 import React from 'react'
 import Book from '../Book'
 import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
+import './SearchPage.css'
 
 class SearchPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      query: ''
+      query: '',
+      showResults: false
     }
   }
 
   updateQuery = (query) => {
     if (query) {
       this.setState({
-        query: query.trim()
+        query: query.trim(),
+        showResults: true
       });
       this.props.onSearch(query.trim());
     }
     else {
       this.setState({
-        query: ''
+        query: '',
+        showResults: false
       });
+      console.log('hey its empty!')
     }
   }
 
@@ -43,22 +49,41 @@ class SearchPage extends React.Component {
           </div>
         </div>
         <ol className="books-grid">
-          {
+          {this.state.showResults ? (
             this.props.searchResults.map(searchBook => {
               //if current books are displayed on the search page give the book the corresponding shelf name
               const matchingBook = this.props.currentBooks.find(currentBook => {
-                
+
                 return currentBook.id === searchBook.id;
 
               })
               return <Book key={searchBook.id} book={searchBook} matchingBook={matchingBook}
                 onShelfUpdate={this.props.onShelfUpdate} />
             })
+          ) : (
+            <h1>Search for books!</h1>
+          )
+            // this.props.searchResults.map(searchBook => {
+            //   //if current books are displayed on the search page give the book the corresponding shelf name
+            //   const matchingBook = this.props.currentBooks.find(currentBook => {
+
+            //     return currentBook.id === searchBook.id;
+
+            //   })
+            //   return <Book key={searchBook.id} book={searchBook} matchingBook={matchingBook}
+            //     onShelfUpdate={this.props.onShelfUpdate} />
+            // })
+            
+
           }
         </ol>
       </div>
     );
   }
+}
+
+SearchPage.propTypes = {
+  searchResults: PropTypes.array.isRequired
 }
 
 export default SearchPage;

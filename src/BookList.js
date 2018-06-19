@@ -1,5 +1,6 @@
-import React from 'react';
-import Book from './Book';
+import React from 'react'
+import Book from './Book'
+import PropsTypes from 'prop-types'
 
 class BookList extends React.Component {
   render() {
@@ -30,11 +31,16 @@ class BookList extends React.Component {
               onShelfUpdate={this.props.onShelfUpdate}
             />
           }
-          // return null
         })}
       </ol>
     );
   }
+}
+
+BookList.propTypes = {
+  currentBooks: PropsTypes.array.isRequired,
+  shelfName: PropsTypes.string.isRequired,
+  onShelfUpdate: PropsTypes.func.isRequired
 }
 
 export default BookList;

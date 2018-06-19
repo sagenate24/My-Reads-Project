@@ -25,15 +25,13 @@ class BooksApp extends React.Component {
   componentDidMount() {
     BooksAPI.getAll()
       .then((results) => {
-        // console.log(results);
         this.setState({
           currentBooks: results
         });
       });
   }
 
-
-//Fires after books are changed to new Shelfs 
+  //Fires after books are changed to new Shelfs 
   renderAllUpdatedBooks = () => {
     BooksAPI.getAll()
       .then((results) => {
