@@ -20,7 +20,6 @@ class BooksApp extends React.Component {
       searchResults: [],
       errors: ''
     };
-    this.updateShelf = this.updateShelf.bind(this);
   }
 
   componentDidMount() {
@@ -68,7 +67,6 @@ class BooksApp extends React.Component {
   }
 
   render() {
-    // console.log(this.state.currentBooks)
     return (
       <div className="app">
         <Route exact path='/' render={() => (

@@ -15,13 +15,19 @@ class Book extends React.Component {
               : <div className="book-cover" style={{ width: 128, height: 193, backgroundImage: `url(${ImageNotFound})` }}></div>
             }
             <div className="book-shelf-changer">
-
+              {/* If books are matching in both App and SearchPage then display correct shelfName*/}
               {this.props.matchingBook && this.props.matchingBook.shelf
                 ? <SelectCategory book={book} shelfName={this.props.matchingBook.shelf}
                   onShelfUpdate={this.props.onShelfUpdate} />
 
-                : <SelectCategory book={book}
+                : this.props.currentBookShelf ? (
+                  <SelectCategory book={book}
                   onShelfUpdate={this.props.onShelfUpdate} shelfName={this.props.currentBookShelf} />
+                ) : (
+                  //no current books and no matching shelfs sets shelf name to none
+                  <SelectCategory book={book}
+                  onShelfUpdate={this.props.onShelfUpdate} shelfName={'none'} />
+                )
               }
             </div>
           </div>
