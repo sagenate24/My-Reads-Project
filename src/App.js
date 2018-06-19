@@ -18,6 +18,7 @@ class BooksApp extends React.Component {
        */
       currentBooks: [],
       searchResults: [],
+      errors: ''
     };
     this.updateShelf = this.updateShelf.bind(this);
   }
@@ -54,10 +55,16 @@ class BooksApp extends React.Component {
 
   searchBooks = (query) => {
     BooksAPI.search(query).then(results => {
-      // console.log(results);
       if (results.length > 0) {
         this.setState(() => {
-          return { searchResults: results }
+          return { 
+            searchResults: results,
+            errors: '' 
+          }
+        })
+      } else if (results.error) {
+        this.setState(() => {
+          return { errors: results.error }
         })
       }
     });
@@ -110,7 +117,7 @@ class BooksApp extends React.Component {
         <Route path='/search' render={() => (
           <SearchPage onShelfUpdate={this.updateShelf} currentBooks={this.state.currentBooks}
             searchResults={this.state.searchResults} onSearch={this.searchBooks}
-            shelfName={this.getShelf} />
+            shelfName={this.getShelf} errors={this.state.errors}/>
         )} />
       </div>
     );

@@ -26,11 +26,11 @@ class SearchPage extends React.Component {
         query: '',
         showResults: false
       });
-      console.log('hey its empty!')
     }
   }
 
   render() {
+    console.log(this.props.errors)
     return (
       <div className="search-books">
         <div className="search-books-bar">
@@ -50,32 +50,22 @@ class SearchPage extends React.Component {
         </div>
         <ol className="books-grid">
           {this.state.showResults ? (
-            this.props.searchResults.map(searchBook => {
-              //if current books are displayed on the search page give the book the corresponding shelf name
-              const matchingBook = this.props.currentBooks.find(currentBook => {
+            this.props.errors.length > 0 ? (
+              <h1>No Results for {this.state.query}</h1>
+            ) : (
+                this.props.searchResults.map(searchBook => {
+                  //if current books are displayed on the search page give books their corresponding shelf name
+                  const matchingBook = this.props.currentBooks.find(currentBook => {
 
-                return currentBook.id === searchBook.id;
+                    return currentBook.id === searchBook.id;
 
-              })
-              return <Book key={searchBook.id} book={searchBook} matchingBook={matchingBook}
-                onShelfUpdate={this.props.onShelfUpdate} />
-            })
-          ) : (
-            <h1>Search for books!</h1>
-          )
-            // this.props.searchResults.map(searchBook => {
-            //   //if current books are displayed on the search page give the book the corresponding shelf name
-            //   const matchingBook = this.props.currentBooks.find(currentBook => {
-
-            //     return currentBook.id === searchBook.id;
-
-            //   })
-            //   return <Book key={searchBook.id} book={searchBook} matchingBook={matchingBook}
-            //     onShelfUpdate={this.props.onShelfUpdate} />
-            // })
-            
-
-          }
+                  })
+                  return <Book key={searchBook.id} book={searchBook} matchingBook={matchingBook}
+                    onShelfUpdate={this.props.onShelfUpdate} />
+                })
+              )) : (
+              <h1>Search for books!</h1>
+            )}
         </ol>
       </div>
     );
