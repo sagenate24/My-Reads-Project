@@ -1,5 +1,5 @@
 
-const api = "https://reactnd-books-api.udacity.com"
+const api = 'https://reactnd-books-api.udacity.com'
 
 
 // Generate a unique token for storing your bookshelf data on the backend server.
@@ -41,4 +41,4 @@ export const search = (query) =>
     },
     body: JSON.stringify({ query })
   }).then(res => res.json())
-  .then(data => data.books)
+    .then(data => data.books)

@@ -61,6 +61,10 @@ body, .app {
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   font-size: 0;
 }
+.open-search a:hover {
+  background-size: 29px;
+  box-shadow: 0 4px 7px rgba(0,0,0,0.16), 0 4px 7px rgba(0,0,0,0.23);
+}
 
 /* search page */
 
@@ -97,6 +101,11 @@ body, .app {
   background-repeat: no-repeat;
   background-size: 28px;
   font-size: 0;
+}
+.close-search:hover {
+  border-radius: 50%;
+  background-color: #81e97d;
+  border: 6px solid white;
 }
 
 .search-books-results {
@@ -153,6 +162,16 @@ body, .app {
   background-position: center;
   background-size: 20px;
   box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+.book-shelf-changer:hover {
+  -moz-transition: all .1s ease-in;
+  -o-transition: all .1s ease-in;
+  -webkit-transition: all .1s ease-in;
+  transition: all .1s ease-in;
+  background-color: #6dc76a;
+  box-shadow: 0 4px 7px rgba(0,0,0,0.16), 0 4px 7px rgba(0,0,0,0.23);
+  background-size: 21px;
+  
 }
 .book-shelf-changer select {
   width: 100%;

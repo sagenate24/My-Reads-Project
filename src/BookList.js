@@ -1,11 +1,11 @@
-import React from 'react'
-import Book from './Book'
-import PropsTypes from 'prop-types'
+import React from 'react';
+import Book from './Book';
+import PropsTypes from 'prop-types';
 
 class BookList extends React.Component {
   render() {
     return (
-      <ol className="books-grid">
+      <ol className='books-grid'>
         {this.props.currentBooks.map(book => {
           if (book.shelf === 'currentlyReading' && this.props.shelfName === 'currentlyReading') {
             return <Book
@@ -41,6 +41,6 @@ BookList.propTypes = {
   currentBooks: PropsTypes.array.isRequired,
   shelfName: PropsTypes.string.isRequired,
   onShelfUpdate: PropsTypes.func.isRequired
-}
+};
 
 export default BookList;
