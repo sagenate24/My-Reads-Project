@@ -4,31 +4,32 @@ import PropsTypes from 'prop-types';
 
 class BookList extends React.Component {
   render() {
+    const { currentBooks, shelfName, onShelfUpdate } = this.props;
     return (
       <ol className='books-grid'>
-        {this.props.currentBooks.map(book => {
-          if (book.shelf === 'currentlyReading' && this.props.shelfName === 'currentlyReading') {
+        {currentBooks.map(book => {
+          if (book.shelf === 'currentlyReading' && shelfName === 'currentlyReading') {
             return <Book
               key={book.id}
               book={book}
-              currentBookShelf={this.props.shelfName}
-              onShelfUpdate={this.props.onShelfUpdate}
+              currentBookShelf={shelfName}
+              onShelfUpdate={onShelfUpdate}
             />
           }
-          else if (book.shelf === 'wantToRead' && this.props.shelfName === 'wantToRead') {
+          else if (book.shelf === 'wantToRead' && shelfName === 'wantToRead') {
             return <Book
               key={book.id}
               book={book}
-              currentBookShelf={this.props.shelfName}
-              onShelfUpdate={this.props.onShelfUpdate}
+              currentBookShelf={shelfName}
+              onShelfUpdate={onShelfUpdate}
             />
           }
-          else if (book.shelf === 'read' && this.props.shelfName === 'read') {
+          else if (book.shelf === 'read' && shelfName === 'read') {
             return <Book
               key={book.id}
               book={book}
-              currentBookShelf={this.props.shelfName}
-              onShelfUpdate={this.props.onShelfUpdate}
+              currentBookShelf={shelfName}
+              onShelfUpdate={onShelfUpdate}
             />
           }
         })}

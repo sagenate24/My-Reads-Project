@@ -5,7 +5,7 @@ import './App.css';
 
 class Book extends React.Component {
   render() {
-    const { book } = this.props;
+    const { book, matchingBook, onShelfUpdate, currentBookShelf } = this.props;
     return (
       <li>
         <div className='book'>
@@ -15,19 +15,27 @@ class Book extends React.Component {
               : <div className='book-cover' style={{ width: 128, height: 193, backgroundImage: `url(${ImageNotFound})` }}></div>
             }
             <div className='book-shelf-changer'>
-              {this.props.matchingBook && this.props.matchingBook.shelf
-
-                //If books are matching in both App and SearchPage then display correct shelfName
-                ? <SelectCategory book={book} shelfName={this.props.matchingBook.shelf}
-                  onShelfUpdate={this.props.onShelfUpdate} />
-
-                : this.props.currentBookShelf ? (
-                  <SelectCategory book={book}
-                    onShelfUpdate={this.props.onShelfUpdate} shelfName={this.props.currentBookShelf} />
+              {matchingBook && matchingBook.shelf ?
+                //if books are matching in both App and SearchPage then display correct shelfName
+                <SelectCategory
+                  book={book}
+                  shelfName={matchingBook.shelf}
+                  onShelfUpdate={onShelfUpdate}
+                />
+                //shelfname displayed on main page
+                : currentBookShelf ? (
+                  <SelectCategory
+                    book={book}
+                    onShelfUpdate={onShelfUpdate}
+                    shelfName={currentBookShelf}
+                  />
                 ) : (
                     //no current books and no matching shelfs sets shelf name to none
-                    <SelectCategory book={book}
-                      onShelfUpdate={this.props.onShelfUpdate} shelfName={'none'} />
+                    <SelectCategory
+                      book={book}
+                      onShelfUpdate={onShelfUpdate}
+                      shelfName={'none'}
+                    />
                   )
               }
             </div>

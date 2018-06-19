@@ -16,6 +16,7 @@ class BooksApp extends React.Component {
     };
   }
 
+  //as component mounts this will set the state of currentBooks to all exisisting books with shelves
   componentDidMount() {
     BooksAPI.getAll()
       .then((results) => {
@@ -45,7 +46,7 @@ class BooksApp extends React.Component {
         this.renderAllUpdatedBooks();
       });
   }
-
+  //search books based on input value, if any errors set state of errors
   searchBooks = (query) => {
     BooksAPI.search(query).then(results => {
       if (results.length > 0) {
@@ -61,6 +62,12 @@ class BooksApp extends React.Component {
   }
 
   render() {
+    /*
+      searchResults: array of book objets returned by search query
+      currentBooks: all books that currently have a shelf and are displayed on main page
+      errors: if search results come back with none then errors will handle a response to the user
+    */
+    const { searchResults, currentBooks, errors } = this.state;
     return (
       <div className='app'>
         <Route exact path='/' render={() => (
@@ -72,22 +79,31 @@ class BooksApp extends React.Component {
               <div className='bookshelf'>
                 <h2 className='bookshelf-title'>Currently Reading</h2>
                 <div className='bookshelf-books'>
-                  <BookList currentBooks={this.state.currentBooks} shelfName={'currentlyReading'}
-                    onShelfUpdate={this.updateShelf} />
+                  <BookList
+                    currentBooks={currentBooks}
+                    shelfName={'currentlyReading'}
+                    onShelfUpdate={this.updateShelf}
+                  />
                 </div>
               </div>
               <div className='bookshelf'>
                 <h2 className='bookshelf-title'>Want To Read</h2>
                 <div className='bookshelf-books'>
-                  <BookList currentBooks={this.state.currentBooks} shelfName={'wantToRead'}
-                    onShelfUpdate={this.updateShelf} />
+                  <BookList
+                    currentBooks={currentBooks}
+                    shelfName={'wantToRead'}
+                    onShelfUpdate={this.updateShelf}
+                  />
                 </div>
               </div>
               <div className='bookshelf'>
                 <h2 className='bookshelf-title'>Read</h2>
                 <div className='bookshelf-books'>
-                  <BookList currentBooks={this.state.currentBooks} shelfName={'read'}
-                    onShelfUpdate={this.updateShelf} />
+                  <BookList
+                    currentBooks={currentBooks}
+                    shelfName={'read'}
+                    onShelfUpdate={this.updateShelf}
+                  />
                 </div>
               </div>
             </div>
@@ -99,9 +115,13 @@ class BooksApp extends React.Component {
           </div>
         )} />
         <Route path='/search' render={() => (
-          <SearchPage onShelfUpdate={this.updateShelf} currentBooks={this.state.currentBooks}
-            searchResults={this.state.searchResults} onSearch={this.searchBooks}
-            errors={this.state.errors} />
+          <SearchPage
+            onShelfUpdate={this.updateShelf}
+            currentBooks={currentBooks}
+            searchResults={searchResults}
+            onSearch={this.searchBooks}
+            errors={errors}
+          />
         )} />
       </div>
     );

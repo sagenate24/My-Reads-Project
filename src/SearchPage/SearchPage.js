@@ -22,6 +22,8 @@ class SearchPage extends React.Component {
   }
 
   render() {
+    const { searchResults, currentBooks, errors, onShelfUpdate } = this.props;
+    const { query } = this.state;
     return (
       <div className='search-books'>
         <div className='search-books-bar'>
@@ -38,18 +40,22 @@ class SearchPage extends React.Component {
           </div>
         </div>
         <ol className='books-grid'>
-          {this.state.query.length > 0 ? (
+          {query.length > 0 ? (
             //this.props.errors is a string that comes back from the server if the query does not match
-            this.props.errors.length > 0 ? (
-              <h1>No Results for '{this.state.query}'</h1>
+            errors.length > 0 ? (
+              <h1>No Results for '{query}'</h1>
             ) : (
-                this.props.searchResults.map(searchBook => {
+                searchResults.map(searchBook => {
                   //if current books are displayed on the search page give books their corresponding shelf name
-                  const matchingBook = this.props.currentBooks.find(currentBook => {
+                  const matchingBook = currentBooks.find(currentBook => {
                     return currentBook.id === searchBook.id;
                   })
-                  return <Book key={searchBook.id} book={searchBook} matchingBook={matchingBook}
-                    onShelfUpdate={this.props.onShelfUpdate} />;
+                  return <Book
+                    key={searchBook.id}
+                    book={searchBook}
+                    matchingBook={matchingBook}
+                    onShelfUpdate={onShelfUpdate}
+                  />;
                 })
               )) : (
               <h1>Search for books!</h1>
