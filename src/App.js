@@ -18,15 +18,10 @@ class BooksApp extends React.Component {
 
   //as component mounts this will set the state of currentBooks to all exisisting books with shelves
   componentDidMount() {
-    BooksAPI.getAll()
-      .then((results) => {
-        this.setState({
-          currentBooks: results
-        });
-      });
+    this.renderAllUpdatedBooks();
   }
 
-  //Fires after books are changed to new Shelfs 
+  //Fires after books are changed to new Shelfs
   renderAllUpdatedBooks = () => {
     BooksAPI.getAll()
       .then((results) => {
@@ -40,22 +35,24 @@ class BooksApp extends React.Component {
   updateShelf = (book, shelf) => {
     BooksAPI.update(book, shelf)
       .then(() => {
+
         this.setState(currState => ({
           currentBooks: currState.currentBooks.filter(b => b.id !== book.id).concat({ book })
         }));
         this.renderAllUpdatedBooks();
       });
   }
+
   //search books based on input value, if any errors set state of errors
   searchBooks = (query) => {
     BooksAPI.search(query).then(results => {
       if (results.length > 0) {
         this.setState(() => {
-          return { searchResults: results, errors: '' }
+          return { searchResults: results, errors: '' };
         });
       } else if (results.error) {
         this.setState(() => {
-          return { errors: results.error }
+          return { errors: results.error };
         });
       };
     });

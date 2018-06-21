@@ -8,23 +8,7 @@ class BookList extends React.Component {
     return (
       <ol className='books-grid'>
         {currentBooks.map(book => {
-          if (book.shelf === 'currentlyReading' && shelfName === 'currentlyReading') {
-            return <Book
-              key={book.id}
-              book={book}
-              currentBookShelf={shelfName}
-              onShelfUpdate={onShelfUpdate}
-            />
-          }
-          else if (book.shelf === 'wantToRead' && shelfName === 'wantToRead') {
-            return <Book
-              key={book.id}
-              book={book}
-              currentBookShelf={shelfName}
-              onShelfUpdate={onShelfUpdate}
-            />
-          }
-          else if (book.shelf === 'read' && shelfName === 'read') {
+          if (book.shelf === shelfName) {
             return <Book
               key={book.id}
               book={book}

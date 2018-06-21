@@ -26,15 +26,15 @@ class Book extends React.Component {
                 : currentBookShelf ? (
                   <SelectCategory
                     book={book}
-                    onShelfUpdate={onShelfUpdate}
                     shelfName={currentBookShelf}
+                    onShelfUpdate={onShelfUpdate}
                   />
                 ) : (
                     //no current books and no matching shelfs sets shelf name to none
                     <SelectCategory
                       book={book}
-                      onShelfUpdate={onShelfUpdate}
                       shelfName={'none'}
+                      onShelfUpdate={onShelfUpdate}
                     />
                   )
               }
