@@ -1,4 +1,6 @@
 {
+  "name": "MyReads",
+  "version": "0.1.0",
   "dependencies": {
     "prop-types": "^15.6.1",
     "react": "^16.3.2",
@@ -13,5 +15,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "engines": {
+    "npm": "6.13.6",
+    "node": "10.15.1"
   }
 }
