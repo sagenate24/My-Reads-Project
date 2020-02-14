@@ -1,5 +1,5 @@
 {
-  "name": "MyReads Book Tracker",
+  "name": "MyReads",
   "version": "0.1.0",
   "dependencies": {
     "prop-types": "^15.6.1",
